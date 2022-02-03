@@ -3,7 +3,6 @@ package com.github.pedroluiznogueira.springdockerpipeline.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "product_table")
 public class Product {
 
     @Id
