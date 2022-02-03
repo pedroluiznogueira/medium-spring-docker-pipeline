@@ -1,0 +1,20 @@
+sudo: required
+
+services:
+  - docker
+
+branches:
+  only:
+    - master
+
+before_install:
+  - mvn clean package
+  - docker build -t pedroluiznogueira/medium-spring-docker-pipeline:"$VERSION" -f Dockerfile .
+
+script:
+  - docker images
+
+after_success:
+  - docker build -t pedroluiznogueira/medium-spring-docker-pipeline:"$VERSION" .
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push pedroluiznogueira/medium-spring-docker-pipeline:"$VERSION"
