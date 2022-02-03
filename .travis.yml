@@ -18,3 +18,14 @@ after_success:
   - docker build -t pedroluiznogueira/medium-spring-docker-pipeline:"$VERSION" .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push pedroluiznogueira/medium-spring-docker-pipeline:"$VERSION"
+
+before_deploy:
+  - rvm $(travis_internal_ruby) --fuzzy do ruby -S gem install faraday -v 1.8.0
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: J9aFocQd9i2U9OnePuwxjS7PY+5fHeluArqQNCH/IDn7kCzoD+IgFwsBgg3Dwgh4lRaHjuz6Q9l9Qknqc1Gihtu9JWlQRGYrGz9v1UsF8eRLWTJ6DR0nVJeSOXohRPwAMskaSwTxtKgxbj5MJE5E/q2hSIjEDWBLE8IToV7u1tJTAeeJ3lqQsvqFgwxs3vDOHrWw0xoLBL+7DtjJasJbCISdy1pMlQmtHVZf6NOiwN8G6gA6BALVKQpfaK0Hfl98ml7ehuQnu3S+KsDU/HrzcpTbfdYdjFIrT6hMVBffl0B/5ef9KgtvU0kpo7XOcPIt0N5b/Ou8RHiALOwA2nc7n7kyD23xTqtt7EmsIUvXV4OXxaTOgXsMLOb2W/8I0EspUtr4J+ccR/P56Sy9Ydl8SVZ9UCkAd365e33oZh3GiChOUWKcWragGs4pBT/jkxfaGE9VGzYvjf290RqtWbtwQyERu0XxEusPZp5XRgWRF6gdGZvJtGuIjD3iHuSwjGaHvpPVExyi+9GFJiQL81mhzTHvoQfQTfgLCFXweCWXcugahrzd+rnPXs8yqwmiN4rM/cAV4KM34s1lkaLAKRjwDXCKEWKFpKumCelGDKi3A2OjpescnEX9wodelsigWCqtZh0jKTYW7m+B/PnD6YykH2bvx5yrsio/C47PmQIcTDw=
+  app: medium-spring-docker-pipeline
+  on:
+    branch: master
