@@ -34,6 +34,6 @@ public class ProductService {
     public String deleteProduct(Long productId) {
         Product productToDelete = productRepository.findById(productId).get();
         productRepository.delete(productToDelete);
-        return "product deleted";
+        return "deleted";
     }
 }
