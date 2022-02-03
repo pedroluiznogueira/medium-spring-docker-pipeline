@@ -8,6 +8,7 @@ public class SpringDockerPipelineApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringDockerPipelineApplication.class, args);
+		System.out.println("Running...");
 	}
 
 }

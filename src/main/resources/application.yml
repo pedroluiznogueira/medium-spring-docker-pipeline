@@ -1,0 +1,9 @@
+# production
+postgresUrl:
+
+postgresUsername:
+
+postgresPassword:
+
+# development
+h2Url: jdbc:h2:mem:testdb
